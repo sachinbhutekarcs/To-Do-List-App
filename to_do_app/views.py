@@ -2,12 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 import datetime
+from zoneinfo import ZoneInfo
 from to_do_app.models import *
 from to_do_app.forms import *
 
 # Create your views here
 
-date = datetime.datetime.now()
+date = datetime.datetime.now(tz=ZoneInfo('Asia/Kolkata'))
 weekdays = ("Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday")
 

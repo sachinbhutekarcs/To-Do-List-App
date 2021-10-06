@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'to_do_app/css/styles.css' %}">
+    <title>To Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+    </script>
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/49362538be.js" crossorigin="anonymous"></script>
+
+    {% comment %} Fonts {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <h1><i class="fas fa-tasks"></i> TO DO LIST</h1>
+        <p>{{weekday}}, {{date}}</p>
+    </header>
+    <main>
+        <section>
+            <h1>{{message}}</h1>
+            <form action="{% url 'to_do_app:index'%}" method="post">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" value="+">
+            </form>
+        </section>
+        {% for task in tasks%}
+        <section class="tasks">
+            <p>{{task.name}}</p>
+            <div>
+
+                <a href="{% url 'to_do_app:change_status' task.id %}">
+                    {% if task.status %}
+                    <i class="fas fa-2x fa-check-circle"></i>
+                    {% else %}
+                    <i class="far fa-2x fa-circle"></i>
+                    {% endif %}
+
+                </a>
+                <a href="{% url 'to_do_app:remove' task.id %}"><i class="far fa-2x fa-trash-alt"></i></a>
+            </div>
+        </section>
+        </div>
+        {% empty %}
+        <div class="message">
+            <p>No Tasks</p>
+        </div>
+        {% endfor %}
+
+    </main>
+    <footer>
+        <p>Made with ❤ by <a href="https://sachinbhutekarcs.github.io/">Sachin Bhutekar</a></p>
+    </footer>
+</body>
+
+</html>

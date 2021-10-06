@@ -2,13 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 import datetime
-from zoneinfo import ZoneInfo
 from to_do_app.models import *
 from to_do_app.forms import *
 
 # Create your views here
 
-date = datetime.datetime.now(tz=ZoneInfo('Asia/Kolkata'))
+date = datetime.datetime.now()
 weekdays = ("Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday")
 
@@ -35,7 +34,6 @@ def index(request):
                 "form": form,
                 "message": "INVALID DATA"
             })
-
     return render(request, "to_do_app/index.html", {
         # pass the list of tasks for this perticular session
         "tasks": tasks,

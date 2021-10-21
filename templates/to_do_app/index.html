@@ -30,7 +30,7 @@
     </header>
     <main>
         <section>
-            <h1>{{message}}</h1>
+            <p>{{message}}</p>
             <form action="{% url 'to_do_app:index'%}" method="post">
                 {% csrf_token %}
                 {{form}}
